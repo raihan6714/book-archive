@@ -1,12 +1,10 @@
-const searchInput = document.getElementById('searchInput');
-const searchBtn = document.getElementById('search-btn');
 const bookContainer = document.getElementById('book-container');
 const errorDiv = document.getElementById('error');
-const totalResult = document.getElementById('total-result');
 
-
-searchBtn.addEventListener('click', function () {
+const loadData = () => {
+    const searchInput = document.getElementById('searchInput');
     const serach = searchInput.value;
+    searchInput.value = '';
     // error handle
     if (serach == "") {
         errorDiv.innerText = "Search field cannot be empty!";
@@ -21,22 +19,20 @@ searchBtn.addEventListener('click', function () {
         // .finally(() => searchInput.value == '');
         // .then(data => console.log(data));
     }
-
-});
+}
 
 // show data
 const showData = bookArray => {
+    const totalResult = document.getElementById('total-result');
     if (bookArray.numFound === 0) {
         // clear total count
-        totalResult.innerHTML = '';
+        totalResult.textContent = '';
         errorDiv.innerText = "No Result Found !"
-
     }
     else {
         errorDiv.innerText = "";
         // total result count
         totalResult.innerHTML = `<h1>Total ${bookArray.numFound} Books Found </h1>`;
-
         // foreach loop
         bookArray.docs.forEach(item => {
             const div = document.createElement('div');
